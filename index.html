@@ -5,50 +5,149 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>GRE 3000 Words - Fast Navigator</title>
 <style>
+:root {
+  --bg-primary: #0f1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #1c2128;
+  --bg-input: #0d1117;
+  --border-primary: #30363d;
+  --border-secondary: #21262d;
+  --text-primary: #e1e4e8;
+  --text-secondary: #c9d1d9;
+  --text-muted: #8b949e;
+  --text-dim: #484f58;
+  --accent-blue: #58a6ff;
+  --accent-green: #7ee787;
+  --accent-purple: #d2a8ff;
+  --accent-orange: #f0883e;
+  --accent-red: #f85149;
+  --accent-yellow: #d29922;
+  --accent-yellow-light: #f0c674;
+  --btn-bg: #21262d;
+  --btn-hover: #30363d;
+  --btn-active-bg: #1f6feb;
+  --btn-active-border: #1f6feb;
+  --flag-bg: rgba(210, 168, 34, 0.25);
+  --flag-border: #d2a8ff;
+  --flag-color: #f0c674;
+  --flag-glow: rgba(210, 168, 34, 0.3);
+  --flag-hover-bg: rgba(210, 168, 34, 0.15);
+  --flag-hover-border: rgba(210, 168, 34, 0.3);
+  --selected-bg: rgba(63, 185, 80, 0.06);
+  --selected-border: #3fb950;
+  --checkbox-color: #3fb950;
+  --audio-btn-bg: rgba(88, 166, 255, 0.1);
+  --audio-btn-border: rgba(88, 166, 255, 0.3);
+  --audio-btn-hover: rgba(88, 166, 255, 0.2);
+  --note-bg: rgba(240, 136, 62, 0.08);
+  --note-border: rgba(240, 136, 62, 0.3);
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f8fa;
+  --bg-tertiary: #eef1f5;
+  --bg-input: #ffffff;
+  --border-primary: #d0d7de;
+  --border-secondary: #e1e4e8;
+  --text-primary: #1f2328;
+  --text-secondary: #383d45;
+  --text-muted: #656d76;
+  --text-dim: #8b949e;
+  --accent-blue: #0969da;
+  --accent-green: #1a7f37;
+  --accent-purple: #8250df;
+  --accent-orange: #bc4c00;
+  --accent-red: #cf222e;
+  --accent-yellow: #9a6700;
+  --accent-yellow-light: #7d5600;
+  --btn-bg: #f6f8fa;
+  --btn-hover: #e1e4e8;
+  --btn-active-bg: #0969da;
+  --btn-active-border: #0969da;
+  --flag-bg: rgba(154, 103, 0, 0.15);
+  --flag-border: #8250df;
+  --flag-color: #7d5600;
+  --flag-glow: rgba(154, 103, 0, 0.2);
+  --flag-hover-bg: rgba(154, 103, 0, 0.1);
+  --flag-hover-border: rgba(154, 103, 0, 0.3);
+  --selected-bg: rgba(26, 127, 55, 0.06);
+  --selected-border: #1a7f37;
+  --checkbox-color: #1a7f37;
+  --audio-btn-bg: rgba(9, 105, 218, 0.08);
+  --audio-btn-border: rgba(9, 105, 218, 0.3);
+  --audio-btn-hover: rgba(9, 105, 218, 0.15);
+  --note-bg: rgba(188, 76, 0, 0.06);
+  --note-border: rgba(188, 76, 0, 0.3);
+  --modal-overlay: rgba(0, 0, 0, 0.4);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #e1e4e8; height: 100vh; display: flex; flex-direction: column; }
-.header { background: #161b22; border-bottom: 1px solid #30363d; padding: 12px 20px; }
-.header h1 { font-size: 18px; color: #58a6ff; margin-bottom: 10px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-primary); color: var(--text-primary); height: 100vh; display: flex; flex-direction: column; }
+.header { background: var(--bg-secondary); border-bottom: 1px solid var(--border-primary); padding: 12px 20px; }
+.header h1 { font-size: 18px; color: var(--accent-blue); margin-bottom: 10px; display: inline-block; }
+.header-top { display: flex; align-items: center; justify-content: space-between; }
+.theme-toggle { background: var(--btn-bg); border: 1px solid var(--border-primary); color: var(--text-secondary); padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.theme-toggle:hover { background: var(--btn-hover); }
 .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.controls input[type="text"], .controls input[type="number"] { background: #0d1117; border: 1px solid #30363d; color: #e1e4e8; padding: 7px 10px; border-radius: 6px; font-size: 14px; outline: none; }
-.controls input:focus { border-color: #58a6ff; }
+.controls input[type="text"], .controls input[type="number"] { background: var(--bg-input); border: 1px solid var(--border-primary); color: var(--text-primary); padding: 7px 10px; border-radius: 6px; font-size: 14px; outline: none; }
+.controls input:focus { border-color: var(--accent-blue); }
 #searchInput { width: 200px; }
 #jumpInput { width: 70px; }
-.btn { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 7px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; white-space: nowrap; }
-.btn:hover { background: #30363d; }
-.btn.active { background: #1f6feb; border-color: #1f6feb; color: #fff; }
-.btn.danger { border-color: #f85149; color: #f85149; }
-.btn.danger:hover { background: #f8514920; }
-.btn.flag-active { background: #d29922; border-color: #d29922; color: #000; }
+.btn { background: var(--btn-bg); border: 1px solid var(--border-primary); color: var(--text-secondary); padding: 7px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; white-space: nowrap; }
+.btn:hover { background: var(--btn-hover); }
+.btn.active { background: var(--btn-active-bg); border-color: var(--btn-active-border); color: #fff; }
+.btn.danger { border-color: var(--accent-red); color: var(--accent-red); }
+.btn.danger:hover { background: rgba(248, 81, 73, 0.12); }
+.btn.flag-active { background: var(--accent-yellow); border-color: var(--accent-yellow); color: #000; }
 .alpha-nav { display: flex; gap: 2px; flex-wrap: wrap; margin-top: 8px; }
-.alpha-nav button { background: #21262d; border: 1px solid #30363d; color: #8b949e; padding: 3px 7px; border-radius: 4px; cursor: pointer; font-size: 12px; min-width: 26px; }
-.alpha-nav button:hover { background: #30363d; color: #e1e4e8; }
-.alpha-nav button.active { background: #1f6feb; border-color: #1f6feb; color: #fff; }
+.alpha-nav button { background: var(--btn-bg); border: 1px solid var(--border-primary); color: var(--text-muted); padding: 3px 7px; border-radius: 4px; cursor: pointer; font-size: 12px; min-width: 26px; }
+.alpha-nav button:hover { background: var(--btn-hover); color: var(--text-primary); }
+.alpha-nav button.active { background: var(--btn-active-bg); border-color: var(--btn-active-bg); color: #fff; }
 .toolbar { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; align-items: center; }
-.toolbar .label { color: #8b949e; font-size: 12px; }
-.stats { color: #8b949e; font-size: 12px; margin-left: auto; }
+.toolbar .label { color: var(--text-muted); font-size: 12px; }
+.stats { color: var(--text-muted); font-size: 12px; margin-left: auto; }
 .main { flex: 1; overflow-y: auto; padding: 10px 20px; min-height: 0; }
-.header-row { display: grid; grid-template-columns: 30px 30px 160px 1fr 2fr 2fr; gap: 10px; padding: 6px 12px; font-size: 11px; color: #484f58; border-bottom: 1px solid #21262d; margin-bottom: 4px; }
+.header-row { display: grid; grid-template-columns: 30px 30px 160px 1fr 2fr 2fr; gap: 10px; padding: 6px 12px; font-size: 11px; color: var(--text-dim); border-bottom: 1px solid var(--border-secondary); margin-bottom: 4px; }
 .word-list { display: flex; flex-direction: column; gap: 3px; }
-.word-item { display: grid; grid-template-columns: 30px 30px 160px 1fr 2fr 2fr; gap: 10px; padding: 8px 12px; background: #161b22; border-radius: 6px; border: 1px solid #21262d; align-items: center; font-size: 13px; cursor: pointer; }
-.word-item:hover { border-color: #30363d; background: #1c2128; }
-.word-item.highlighted { border-color: #1f6feb; background: #1c2128; }
-.word-item.selected { border-color: #3fb950; background: #3fb95010; }
-.word-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: #3fb950; }
-.flag-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; font-size: 16px; padding: 4px 8px; opacity: 0.4; transition: all 0.15s; border-radius: 4px; color: #8b949e; }
-.flag-btn:hover { opacity: 0.8; background: rgba(210, 168, 34, 0.15); border-color: rgba(210, 168, 34, 0.3); color: #d2a8ff; }
-.flag-btn.flagged { opacity: 1; background: rgba(210, 168, 34, 0.25); border-color: #d2a8ff; color: #f0c674; box-shadow: 0 0 8px rgba(210, 168, 34, 0.3); }
-.word-index { color: #484f58; font-size: 11px; font-family: monospace; }
-.word-name { color: #58a6ff; font-weight: 600; font-size: 14px; }
-.word-phonetic { color: #8b949e; font-size: 11px; }
-.word-phonetic .label { color: #484f58; font-size: 10px; margin-right: 3px; }
-.word-pos { color: #d2a8ff; font-size: 12px; }
-.word-en { color: #7ee787; font-size: 12px; }
-.shortcuts { background: #161b22; border-top: 1px solid #30363d; padding: 6px 20px; display: flex; gap: 14px; font-size: 11px; color: #484f58; flex-wrap: wrap; }
-.shortcuts kbd { background: #21262d; border: 1px solid #30363d; padding: 1px 4px; border-radius: 3px; font-family: monospace; color: #8b949e; font-size: 10px; }
-#flagFileInput { display: none; }
+.word-item { display: grid; grid-template-columns: 30px 30px 160px 1fr 2fr 2fr; gap: 10px; padding: 8px 12px; background: var(--bg-secondary); border-radius: 6px; border: 1px solid var(--border-secondary); align-items: center; font-size: 13px; cursor: pointer; }
+.word-item:hover { border-color: var(--border-primary); background: var(--bg-tertiary); }
+.word-item.highlighted { border-color: var(--accent-blue); background: var(--bg-tertiary); }
+.word-item.selected { border-color: var(--selected-border); background: var(--selected-bg); }
+.word-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--checkbox-color); }
+.flag-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; font-size: 16px; padding: 4px 8px; opacity: 0.4; transition: all 0.15s; border-radius: 4px; color: var(--text-muted); }
+.flag-btn:hover { opacity: 0.8; background: var(--flag-hover-bg); border-color: var(--flag-hover-border); color: var(--accent-purple); }
+.flag-btn.flagged { opacity: 1; background: var(--flag-bg); border-color: var(--flag-border); color: var(--flag-color); box-shadow: 0 0 8px var(--flag-glow); }
+.audio-btn { background: var(--audio-btn-bg); border: 1px solid var(--audio-btn-border); cursor: pointer; font-size: 12px; padding: 3px 7px; border-radius: 4px; color: var(--accent-blue); transition: all 0.15s; white-space: nowrap; }
+.audio-btn:hover { background: var(--audio-btn-hover); }
+.audio-btn:active { transform: scale(0.95); }
+.audio-btn.playing { animation: pulse-audio 0.6s ease-in-out infinite; }
+@keyframes pulse-audio { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.word-index { color: var(--text-dim); font-size: 11px; font-family: monospace; }
+.word-name { color: var(--accent-blue); font-weight: 600; font-size: 14px; }
+.word-phonetic { color: var(--text-muted); font-size: 11px; }
+.word-phonetic .label { color: var(--text-dim); font-size: 10px; margin-right: 3px; }
+.word-phonetic .audio-row { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+.word-pos { color: var(--accent-purple); font-size: 12px; }
+.word-en { color: var(--accent-green); font-size: 12px; }
+.note-indicator { color: var(--accent-orange); font-size: 11px; cursor: pointer; opacity: 0.7; }
+.note-indicator:hover { opacity: 1; }
+.note-indicator.has-note { opacity: 1; font-weight: bold; }
+.shortcuts { background: var(--bg-secondary); border-top: 1px solid var(--border-primary); padding: 6px 20px; display: flex; gap: 14px; font-size: 11px; color: var(--text-dim); flex-wrap: wrap; }
+.shortcuts kbd { background: var(--btn-bg); border: 1px solid var(--border-primary); padding: 1px 4px; border-radius: 3px; font-family: monospace; color: var(--text-muted); font-size: 10px; }
+#flagFileInput, #noteFileInput { display: none; }
 .mobile-view { display: none; }
 .desktop-view { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+
+.modal-overlay { display: none; position: fixed; inset: 0; background: var(--modal-overlay); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--bg-secondary); border: 1px solid var(--border-primary); border-radius: 12px; padding: 20px; width: 100%; max-width: 500px; max-height: 80vh; display: flex; flex-direction: column; }
+.modal h3 { color: var(--accent-blue); margin-bottom: 12px; font-size: 16px; }
+.modal textarea { background: var(--bg-input); border: 1px solid var(--border-primary); color: var(--text-primary); padding: 10px; border-radius: 6px; font-size: 14px; outline: none; resize: vertical; min-height: 100px; font-family: inherit; flex: 1; }
+.modal textarea:focus { border-color: var(--accent-blue); }
+.modal-actions { display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end; }
+.modal-export textarea { min-height: 200px; font-family: monospace; font-size: 12px; }
 
 @media (max-width: 768px) {
   .header { padding: 10px 12px; }
@@ -60,10 +159,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   .mobile-view { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
   .shortcuts { display: none; }
   .header-row { display: none; }
+  .toolbar { display: none; }
 
-  .mobile-tabs { display: flex; gap: 0; background: #161b22; border-bottom: 1px solid #30363d; }
-  .mobile-tabs button { flex: 1; padding: 10px; background: none; border: none; border-bottom: 2px solid transparent; color: #8b949e; font-size: 13px; cursor: pointer; }
-  .mobile-tabs button.active { color: #58a6ff; border-bottom-color: #58a6ff; }
+  .mobile-tabs { display: flex; gap: 0; background: var(--bg-secondary); border-bottom: 1px solid var(--border-primary); }
+  .mobile-tabs button { flex: 1; padding: 10px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--text-muted); font-size: 13px; cursor: pointer; }
+  .mobile-tabs button.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
 
   .flashcard-container { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
   .flashcard-container.hidden { display: none; }
@@ -71,33 +171,54 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   .flashcard { width: 100%; max-width: 360px; min-height: 240px; position: relative; transform-style: preserve-3d; transition: transform 0.4s ease; cursor: pointer; }
   .flashcard.flipped { transform: rotateY(180deg); }
   .flashcard-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-  .flashcard-front { background: #161b22; border: 1px solid #30363d; }
-  .flashcard-back { background: #1c2128; border: 1px solid #30363d; transform: rotateY(180deg); }
-  .flashcard-front .fc-word { font-size: 28px; font-weight: 700; color: #58a6ff; margin-bottom: 12px; }
-  .flashcard-front .fc-phonetic { font-size: 14px; color: #8b949e; line-height: 1.6; }
-  .flashcard-front .fc-index { position: absolute; top: 12px; left: 16px; font-size: 11px; color: #484f58; }
+  .flashcard-front { background: var(--bg-secondary); border: 1px solid var(--border-primary); }
+  .flashcard-back { background: var(--bg-tertiary); border: 1px solid var(--border-primary); transform: rotateY(180deg); }
+  .flashcard-front .fc-word { font-size: 28px; font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; }
+  .flashcard-front .fc-phonetic { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .flashcard-front .fc-index { position: absolute; top: 12px; left: 16px; font-size: 11px; color: var(--text-dim); }
   .flashcard-front .fc-flag { position: absolute; top: 10px; right: 14px; }
-  .flashcard-back .fc-pos { font-size: 15px; color: #d2a8ff; margin-bottom: 12px; }
-  .flashcard-back .fc-en { font-size: 15px; color: #7ee787; line-height: 1.5; }
-  .flashcard-back .fc-cn { font-size: 14px; color: #f0883e; margin-top: 10px; }
-  .flashcard-nav { display: flex; gap: 10px; padding: 12px 20px; justify-content: center; align-items: center; background: #161b22; border-top: 1px solid #30363d; }
-  .flashcard-nav .btn { padding: 10px 20px; font-size: 14px; }
-  .flashcard-nav .fc-counter { color: #8b949e; font-size: 13px; min-width: 80px; text-align: center; }
+  .flashcard-front .fc-audio { display: flex; gap: 8px; margin-top: 12px; }
+  .flashcard-back .fc-pos { font-size: 15px; color: var(--accent-purple); margin-bottom: 12px; }
+  .flashcard-back .fc-en { font-size: 15px; color: var(--accent-green); line-height: 1.5; }
+  .flashcard-back .fc-cn { font-size: 14px; color: var(--accent-orange); margin-top: 10px; }
+  .flashcard-back .fc-note { font-size: 12px; color: var(--text-muted); margin-top: 10px; font-style: italic; max-width: 100%; word-break: break-word; }
+  .flashcard-nav { display: flex; gap: 8px; padding: 10px 16px; justify-content: center; align-items: center; background: var(--bg-secondary); border-top: 1px solid var(--border-primary); flex-wrap: wrap; }
+  .flashcard-nav .btn { padding: 8px 14px; font-size: 13px; }
+  .flashcard-nav .fc-counter { color: var(--text-muted); font-size: 13px; min-width: 80px; text-align: center; }
 
   .quicklist-container { flex: 1; overflow-y: auto; }
   .quicklist-container.hidden { display: none; }
-  .quicklist-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #21262d; cursor: pointer; }
-  .quicklist-item:active { background: #1c2128; }
+  .quicklist-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--border-secondary); cursor: pointer; }
+  .quicklist-item:active { background: var(--bg-tertiary); }
   .quicklist-item .ql-flag { font-size: 14px; opacity: 0.3; flex-shrink: 0; }
   .quicklist-item .ql-flag.flagged { opacity: 1; }
-  .quicklist-item .ql-word { color: #58a6ff; font-weight: 600; font-size: 15px; flex: 1; }
-  .quicklist-item .ql-pos { color: #8b949e; font-size: 12px; }
+  .quicklist-item .ql-word { color: var(--accent-blue); font-weight: 600; font-size: 15px; flex: 1; }
+  .quicklist-item .ql-pos { color: var(--text-muted); font-size: 12px; }
+  .quicklist-item .ql-note-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-orange); flex-shrink: 0; }
+
+  .note-container { flex: 1; overflow-y: auto; padding: 16px; }
+  .note-container.hidden { display: none; }
+  .note-word-label { color: var(--accent-blue); font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .note-textarea { width: 100%; min-height: 150px; background: var(--note-bg); border: 1px solid var(--note-border); color: var(--text-primary); padding: 12px; border-radius: 8px; font-size: 14px; font-family: inherit; outline: none; resize: vertical; }
+  .note-textarea:focus { border-color: var(--accent-blue); }
+  .note-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .note-list { margin-top: 20px; }
+  .note-list-item { padding: 10px 12px; background: var(--bg-secondary); border: 1px solid var(--border-secondary); border-radius: 6px; margin-bottom: 6px; cursor: pointer; }
+  .note-list-item:active { background: var(--bg-tertiary); }
+  .note-list-item .nl-word { color: var(--accent-blue); font-weight: 600; font-size: 14px; }
+  .note-list-item .nl-preview { color: var(--text-muted); font-size: 12px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .mobile-toolbar { display: flex; gap: 6px; padding: 8px 12px; background: var(--bg-secondary); border-bottom: 1px solid var(--border-primary); flex-wrap: wrap; align-items: center; }
+  .mobile-toolbar .btn { padding: 6px 10px; font-size: 11px; }
 }
 </style>
 </head>
 <body>
 <div class="header">
+<div class="header-top">
 <h1>GRE 3000 Words</h1>
+<button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">&#9789;</button>
+</div>
 <div class="controls">
 <input type="text" id="searchInput" placeholder="Search..." autocomplete="off">
 <input type="number" id="jumpInput" placeholder="#" min="1" max="3041">
@@ -116,7 +237,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <button class="btn" onclick="document.getElementById('flagFileInput').click()">&#128194; Import .flag</button>
 <input type="file" id="flagFileInput" accept=".flag,.json" onchange="importFlags(event)">
 <span class="label" style="margin-left:8px">Export:</span>
-<button class="btn" onclick="exportSelected()">Export Selected</button>
+<button class="btn" onclick="exportSelectedWithNotes()">Export Selected</button>
+<button class="btn" onclick="exportAllNotes()">&#128221; Export Notes</button>
 <button class="btn danger" onclick="clearSelection()" id="clearSelBtn" style="display:none">Clear (0)</button>
 </div>
 </div>
@@ -133,7 +255,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <div class="mobile-view" id="mobileView">
 <div class="mobile-tabs">
 <button class="active" onclick="switchMobileTab('flashcard')">Flashcard</button>
-<button onclick="switchMobileTab('quicklist')">Quick List</button>
+<button onclick="switchMobileTab('quicklist')">List</button>
+<button onclick="switchMobileTab('note')">Note</button>
+<button onclick="switchMobileTab('export')">Export</button>
 </div>
 <div class="flashcard-container" id="flashcardContainer">
 <div class="flashcard-area">
@@ -143,22 +267,54 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <button class="flag-btn fc-flag" id="fcFlag" onclick="event.stopPropagation(); toggleFlagCard()">&#9873;</button>
 <div class="fc-word" id="fcWord"></div>
 <div class="fc-phonetic" id="fcPhonetic"></div>
+<div class="fc-audio" id="fcAudio"></div>
 </div>
 <div class="flashcard-face flashcard-back">
 <div class="fc-pos" id="fcPos"></div>
 <div class="fc-en" id="fcEn"></div>
 <div class="fc-cn" id="fcCn"></div>
+<div class="fc-note" id="fcNote"></div>
 </div>
 </div>
 </div>
 <div class="flashcard-nav">
-<button class="btn" onclick="cardPrev()">&#9664; Prev</button>
+<button class="btn" onclick="cardPrev()">&#9664;</button>
 <span class="fc-counter" id="fcCounter"></span>
-<button class="btn" onclick="cardNext()">Next &#9654;</button>
+<button class="btn" onclick="cardNext()">&#9654;</button>
+<button class="btn" onclick="openNoteModal()" title="Add note">&#128221;</button>
 </div>
 </div>
 <div class="quicklist-container hidden" id="quicklistContainer">
 <div id="quicklist"></div>
+</div>
+<div class="note-container hidden" id="noteContainer">
+<div id="noteContent"></div>
+</div>
+<div class="note-container hidden" id="exportContainer">
+<div id="exportContent"></div>
+</div>
+</div>
+
+<div class="modal-overlay" id="noteModal">
+<div class="modal">
+<h3 id="noteModalTitle">Note</h3>
+<textarea id="noteModalText" placeholder="Write your note here..."></textarea>
+<div class="modal-actions">
+<button class="btn" onclick="closeNoteModal()">Cancel</button>
+<button class="btn" onclick="saveNoteFromModal()">Save</button>
+</div>
+</div>
+</div>
+
+<div class="modal-overlay" id="exportModal">
+<div class="modal modal-export">
+<h3 id="exportModalTitle">Export</h3>
+<textarea id="exportModalText" readonly></textarea>
+<div class="modal-actions">
+<button class="btn" onclick="copyExportText()">Copy</button>
+<button class="btn" onclick="downloadExportText()">Download</button>
+<button class="btn" onclick="closeExportModal()">Close</button>
+</div>
 </div>
 </div>
 
@@ -169,6 +325,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <span><kbd>&#8593;&#8595;</kbd> Nav</span>
 <span><kbd>Space</kbd> Select</span>
 <span><kbd>F</kbd> Flag</span>
+<span><kbd>N</kbd> Note</span>
 </div>
 
 <script>
@@ -181,6 +338,92 @@ let flaggedIdx = -1;
 let showFlaggedOnly = false;
 let cardIdx = 0;
 let cardFlipped = false;
+let noteEditIdx = -1;
+let currentAudio = null;
+
+const notes = {};
+const savedNotes = localStorage.getItem('gre_notes');
+if (savedNotes) {
+  try { Object.assign(notes, JSON.parse(savedNotes)); } catch(e) {}
+}
+function saveNotes() {
+  localStorage.setItem('gre_notes', JSON.stringify(notes));
+}
+function getNote(idx) {
+  return notes[idx] || '';
+}
+function setNote(idx, text) {
+  if (text.trim()) {
+    notes[idx] = text.trim();
+  } else {
+    delete notes[idx];
+  }
+  saveNotes();
+}
+
+const savedFlag = localStorage.getItem('gre_flag');
+if (savedFlag) {
+  try { flaggedIdx = parseInt(savedFlag); } catch(e) {}
+}
+function saveFlag() {
+  localStorage.setItem('gre_flag', flaggedIdx.toString());
+}
+
+const savedTheme = localStorage.getItem('gre_theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-theme', savedTheme);
+} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+  document.documentElement.setAttribute('data-theme', 'light');
+}
+updateThemeBtn();
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  if (next === 'dark') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', next);
+  }
+  localStorage.setItem('gre_theme', next);
+  updateThemeBtn();
+}
+function updateThemeBtn() {
+  const btn = document.getElementById('themeBtn');
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  btn.innerHTML = isLight ? '&#9728;' : '&#9789;';
+}
+
+function playAudio(word, accent) {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio = null;
+    document.querySelectorAll('.audio-btn.playing').forEach(b => b.classList.remove('playing'));
+  }
+  const dir = accent === 'uk' ? 'audio_uk' : 'audio_us';
+  const src = dir + '/' + word + '.wav';
+  const audio = new Audio(src);
+  currentAudio = audio;
+  const btns = document.querySelectorAll('.audio-btn[data-word="' + word + '"][data-accent="' + accent + '"]');
+  btns.forEach(b => b.classList.add('playing'));
+  audio.onended = () => {
+    btns.forEach(b => b.classList.remove('playing'));
+    currentAudio = null;
+  };
+  audio.onerror = () => {
+    btns.forEach(b => b.classList.remove('playing'));
+    currentAudio = null;
+  };
+  audio.play().catch(() => {
+    btns.forEach(b => b.classList.remove('playing'));
+    currentAudio = null;
+  });
+}
+
+function audioBtnHTML(word, accent) {
+  const label = accent === 'uk' ? 'UK' : 'US';
+  return '<button class="audio-btn" data-word="' + word + '" data-accent="' + accent + '" onclick="event.stopPropagation(); playAudio(\'' + word + '\', \'' + accent + '\')">' + label + ' &#9654;</button>';
+}
 
 const wordList = document.getElementById('wordList');
 const searchInput = document.getElementById('searchInput');
@@ -188,15 +431,6 @@ const jumpInput = document.getElementById('jumpInput');
 const stats = document.getElementById('stats');
 const main = document.getElementById('main');
 const alphaNav = document.getElementById('alphaNav');
-
-const savedFlag = localStorage.getItem('gre_flag');
-if (savedFlag) {
-  try { flaggedIdx = parseInt(savedFlag); } catch(e) {}
-}
-
-function saveFlag() {
-  localStorage.setItem('gre_flag', flaggedIdx.toString());
-}
 
 const letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
 letters.forEach(l => {
@@ -217,6 +451,7 @@ function renderWords() {
     const div = document.createElement('div');
     const isSel = selectedSet.has(w.idx);
     const isFlag = flaggedIdx === w.idx;
+    const hasNote = !!notes[w.idx];
     div.className = 'word-item' + (i === highlightedIdx ? ' highlighted' : '') + (isSel ? ' selected' : '');
     div.dataset.index = i;
     div.innerHTML = `
@@ -224,11 +459,11 @@ function renderWords() {
       <button class="flag-btn ${isFlag ? 'flagged' : ''}" onclick="event.stopPropagation(); toggleFlag(${w.idx})" title="Flag">&#9873;</button>
       <div><div class="word-name">${w.w}</div></div>
       <div class="word-phonetic">
-        <div><span class="label">UK</span> ${w.uk}</div>
-        <div><span class="label">US</span> ${w.us}</div>
+        <div class="audio-row"><span class="label">UK</span> ${w.uk} ${audioBtnHTML(w.w, 'uk')}</div>
+        <div class="audio-row"><span class="label">US</span> ${w.us} ${audioBtnHTML(w.w, 'us')}</div>
       </div>
       <div><div class="word-pos">${w.pos}</div></div>
-      <div class="word-en">${w.en}</div>
+      <div><div class="word-en">${w.en}</div><span class="note-indicator ${hasNote ? 'has-note' : ''}" onclick="event.stopPropagation(); openNoteModalFor(${w.idx})" title="Note">&#128221;${hasNote ? ' *' : ''}</span></div>
     `;
     div.onclick = () => { highlightedIdx = i; renderWords(); };
     fragment.appendChild(div);
@@ -242,6 +477,8 @@ function updateStats() {
   let s = filteredWords.length + ' / ' + WORDS.length + ' words';
   if (selectedSet.size > 0) s += ' | ' + selectedSet.size + ' selected';
   if (flaggedIdx >= 0) s += ' | 1 flagged';
+  const noteCount = Object.keys(notes).length;
+  if (noteCount > 0) s += ' | ' + noteCount + ' notes';
   stats.textContent = s;
   const btn = document.getElementById('clearSelBtn');
   if (selectedSet.size > 0) { btn.style.display = ''; btn.textContent = 'Clear (' + selectedSet.size + ')'; }
@@ -312,11 +549,38 @@ function toggleFlagFilter() {
   filterWords();
 }
 
+function openNoteModalFor(idx) {
+  noteEditIdx = idx;
+  const w = WORDS[idx];
+  document.getElementById('noteModalTitle').textContent = 'Note: ' + w.w;
+  document.getElementById('noteModalText').value = getNote(idx);
+  document.getElementById('noteModal').classList.add('show');
+  setTimeout(() => document.getElementById('noteModalText').focus(), 100);
+}
+function closeNoteModal() {
+  document.getElementById('noteModal').classList.remove('show');
+  noteEditIdx = -1;
+}
+function saveNoteFromModal() {
+  if (noteEditIdx >= 0) {
+    const text = document.getElementById('noteModalText').value;
+    setNote(noteEditIdx, text);
+    renderWords();
+    renderMobile();
+  }
+  closeNoteModal();
+}
+
+function openNoteModal() {
+  if (filteredWords.length === 0) return;
+  openNoteModalFor(filteredWords[cardIdx].idx);
+}
+
 function exportFlags() {
   if (flaggedIdx < 0) { alert('No word flagged'); return; }
   const w = WORDS[flaggedIdx];
   const data = JSON.stringify({ version: 1, flag: w.w, index: flaggedIdx }, null, 2);
-  downloadFile('gre_flag.flag', data);
+  showExportModal('gre_flag.flag', data);
 }
 function importFlags(event) {
   const file = event.target.files[0];
@@ -341,33 +605,83 @@ function importFlags(event) {
   event.target.value = '';
 }
 
-function exportSelected() {
+function exportSelectedWithNotes() {
   if (selectedSet.size === 0) { alert('No words selected'); return; }
   const sorted = Array.from(selectedSet).sort((a,b) => a - b);
   const lines = sorted.map(i => {
     const w = WORDS[i];
-    return `${i+1}. ${w.w}\n   UK: ${w.uk}  US: ${w.us}\n   ${w.pos}\n   ${w.en}`;
+    let line = `${i+1}. ${w.w}\n   UK: ${w.uk}  US: ${w.us}\n   ${w.pos}\n   ${w.en}\n   CN: ${w.cn}`;
+    const note = getNote(i);
+    if (note) line += `\n   Note: ${note}`;
+    return line;
   });
-  downloadFile('gre_selected.txt', lines.join('\n\n'));
+  showExportModal('gre_selected.txt', lines.join('\n\n'));
+}
+
+function exportAllNotes() {
+  const noteIndices = Object.keys(notes).map(Number).sort((a,b) => a - b);
+  if (noteIndices.length === 0) { alert('No notes to export'); return; }
+  const lines = noteIndices.map(i => {
+    const w = WORDS[i];
+    return `${i+1}. ${w.w}\n   ${w.pos}\n   Note: ${notes[i]}`;
+  });
+  showExportModal('gre_notes.txt', lines.join('\n\n'));
+}
+
+let exportFileName = 'export.txt';
+function showExportModal(filename, content) {
+  exportFileName = filename;
+  document.getElementById('exportModalTitle').textContent = filename;
+  document.getElementById('exportModalText').value = content;
+  document.getElementById('exportModal').classList.add('show');
+}
+function closeExportModal() {
+  document.getElementById('exportModal').classList.remove('show');
+}
+function copyExportText() {
+  const textarea = document.getElementById('exportModalText');
+  textarea.select();
+  textarea.setSelectionRange(0, 99999);
+  try {
+    document.execCommand('copy');
+    alert('Copied to clipboard!');
+  } catch(e) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(textarea.value).then(() => alert('Copied!')).catch(() => alert('Copy failed'));
+    }
+  }
+}
+function downloadExportText() {
+  const content = document.getElementById('exportModalText').value;
+  downloadFile(exportFileName, content);
 }
 
 function downloadFile(name, content) {
   const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
+  a.href = url;
   a.download = name;
+  document.body.appendChild(a);
   a.click();
-  URL.revokeObjectURL(a.href);
+  setTimeout(() => {
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 100);
 }
 
 searchInput.addEventListener('input', () => filterWords(false));
 jumpInput.addEventListener('keydown', e => { if (e.key === 'Enter') jumpToIndex(); });
 
 document.addEventListener('keydown', e => {
+  if (document.getElementById('noteModal').classList.contains('show')) return;
+  if (document.getElementById('exportModal').classList.contains('show')) return;
   if (e.key === '/' && document.activeElement !== searchInput && document.activeElement !== jumpInput) {
     e.preventDefault(); searchInput.focus();
   }
   if (e.key === 'Escape') {
+    if (document.getElementById('noteModal').classList.contains('show')) { closeNoteModal(); return; }
+    if (document.getElementById('exportModal').classList.contains('show')) { closeExportModal(); return; }
     searchInput.value = ''; jumpInput.value = '';
     document.querySelectorAll('.alpha-nav button').forEach(b => b.classList.remove('active'));
     showFlaggedOnly = false;
@@ -415,6 +729,12 @@ document.addEventListener('keydown', e => {
       toggleFlag(filteredWords[target].idx);
     }
   }
+  if (e.key === 'n' || e.key === 'N') {
+    if (filteredWords.length > 0) {
+      const target = highlightedIdx >= 0 ? highlightedIdx : 0;
+      openNoteModalFor(filteredWords[target].idx);
+    }
+  }
 });
 
 function switchMobileTab(tab) {
@@ -422,8 +742,12 @@ function switchMobileTab(tab) {
   event.target.classList.add('active');
   document.getElementById('flashcardContainer').classList.toggle('hidden', tab !== 'flashcard');
   document.getElementById('quicklistContainer').classList.toggle('hidden', tab !== 'quicklist');
+  document.getElementById('noteContainer').classList.toggle('hidden', tab !== 'note');
+  document.getElementById('exportContainer').classList.toggle('hidden', tab !== 'export');
   if (tab === 'flashcard') renderCard();
   if (tab === 'quicklist') renderQuicklist();
+  if (tab === 'note') renderNoteTab();
+  if (tab === 'export') renderExportTab();
 }
 
 function renderCard() {
@@ -432,12 +756,15 @@ function renderCard() {
   if (cardIdx < 0) cardIdx = 0;
   const w = filteredWords[cardIdx];
   const isFlag = flaggedIdx === w.idx;
+  const note = getNote(w.idx);
   document.getElementById('fcIndex').textContent = '#' + (w.idx + 1);
   document.getElementById('fcWord').textContent = w.w;
   document.getElementById('fcPhonetic').innerHTML = 'UK ' + w.uk + '<br>US ' + w.us;
+  document.getElementById('fcAudio').innerHTML = audioBtnHTML(w.w, 'uk') + audioBtnHTML(w.w, 'us');
   document.getElementById('fcPos').textContent = w.pos;
   document.getElementById('fcEn').textContent = w.en;
   document.getElementById('fcCn').textContent = w.cn;
+  document.getElementById('fcNote').textContent = note ? 'Note: ' + note : '';
   document.getElementById('fcFlag').className = 'flag-btn fc-flag' + (isFlag ? ' flagged' : '');
   document.getElementById('fcCounter').textContent = (cardIdx + 1) + ' / ' + filteredWords.length;
   document.getElementById('flashcard').classList.toggle('flipped', cardFlipped);
@@ -459,10 +786,13 @@ function renderQuicklist() {
     const div = document.createElement('div');
     div.className = 'quicklist-item';
     const isFlag = flaggedIdx === w.idx;
+    const hasNote = !!notes[w.idx];
     div.innerHTML = `
       <span class="ql-flag ${isFlag ? 'flagged' : ''}" onclick="event.stopPropagation(); toggleFlag(${w.idx}); renderQuicklist();">&#9873;</span>
       <span class="ql-word">${w.w}</span>
+      ${hasNote ? '<span class="ql-note-dot" title="Has note"></span>' : ''}
       <span class="ql-pos">${w.pos}</span>
+      <button class="audio-btn" onclick="event.stopPropagation(); playAudio('${w.w}', 'us')" style="padding:2px 6px;font-size:10px">US &#9654;</button>
     `;
     div.onclick = () => { cardIdx = i; cardFlipped = false; switchMobileTabDirect('flashcard'); renderCard(); };
     fragment.appendChild(div);
@@ -471,18 +801,71 @@ function renderQuicklist() {
   el.appendChild(fragment);
 }
 
+function renderNoteTab() {
+  const el = document.getElementById('noteContent');
+  const noteIndices = Object.keys(notes).map(Number).sort((a,b) => a - b);
+  if (noteIndices.length === 0) {
+    el.innerHTML = '<p style="color:var(--text-muted);text-align:center;margin-top:40px">No notes yet.<br>Tap the note icon on a flashcard to add one.</p>';
+    return;
+  }
+  let html = '<p style="color:var(--text-muted);font-size:12px;margin-bottom:12px">' + noteIndices.length + ' notes</p>';
+  noteIndices.forEach(i => {
+    const w = WORDS[i];
+    html += '<div class="note-list-item" onclick="editNoteFromTab(' + i + ')"><div class="nl-word">' + w.w + '</div><div class="nl-preview">' + notes[i] + '</div></div>';
+  });
+  el.innerHTML = html;
+}
+
+function editNoteFromTab(idx) {
+  noteEditIdx = idx;
+  const w = WORDS[idx];
+  document.getElementById('noteModalTitle').textContent = 'Note: ' + w.w;
+  document.getElementById('noteModalText').value = getNote(idx);
+  document.getElementById('noteModal').classList.add('show');
+  setTimeout(() => document.getElementById('noteModalText').focus(), 100);
+}
+
+function renderExportTab() {
+  const el = document.getElementById('exportContent');
+  let html = '<div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">';
+  html += '<button class="btn" onclick="mobileExportSelected()" style="padding:14px;font-size:14px;text-align:left">Export Selected Words</button>';
+  html += '<button class="btn" onclick="mobileExportFlags()" style="padding:14px;font-size:14px;text-align:left">Export Flagged Word</button>';
+  html += '<button class="btn" onclick="mobileExportNotes()" style="padding:14px;font-size:14px;text-align:left">Export All Notes</button>';
+  html += '<label class="btn" style="padding:14px;font-size:14px;text-align:left;cursor:pointer;display:block">Import .flag File<input type="file" accept=".flag,.json" onchange="importFlags(event)" style="display:none"></label>';
+  html += '</div>';
+  el.innerHTML = html;
+}
+
+function mobileExportSelected() {
+  if (selectedSet.size === 0) {
+    alert('No words selected. Use the List tab to select words first.');
+    return;
+  }
+  exportSelectedWithNotes();
+}
+function mobileExportFlags() {
+  exportFlags();
+}
+function mobileExportNotes() {
+  exportAllNotes();
+}
+
 function switchMobileTabDirect(tab) {
   document.querySelectorAll('.mobile-tabs button').forEach(b => b.classList.remove('active'));
   const tabs = document.querySelectorAll('.mobile-tabs button');
-  if (tab === 'flashcard' && tabs[0]) tabs[0].classList.add('active');
-  if (tab === 'quicklist' && tabs[1]) tabs[1].classList.add('active');
+  const tabMap = { flashcard: 0, quicklist: 1, note: 2, export: 3 };
+  if (tabs[tabMap[tab]]) tabs[tabMap[tab]].classList.add('active');
   document.getElementById('flashcardContainer').classList.toggle('hidden', tab !== 'flashcard');
   document.getElementById('quicklistContainer').classList.toggle('hidden', tab !== 'quicklist');
+  document.getElementById('noteContainer').classList.toggle('hidden', tab !== 'note');
+  document.getElementById('exportContainer').classList.toggle('hidden', tab !== 'export');
 }
 
 function renderMobile() {
   renderCard();
   if (!document.getElementById('quicklistContainer').classList.contains('hidden')) renderQuicklist();
+  if (!document.getElementById('noteContainer').classList.contains('hidden')) renderNoteTab();
+  if (!document.getElementById('exportContainer').classList.contains('hidden')) renderExportTab();
 }
 
 renderWords();
